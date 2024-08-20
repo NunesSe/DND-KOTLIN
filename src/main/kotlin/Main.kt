@@ -1,4 +1,7 @@
+import bonusRacial.Anao
+
 fun main(args: Array<String>) {
-    var p = Personagem()
+    val p = Personagem(Anao());
     p.distribuirPontos()
+
 }
