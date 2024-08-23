@@ -1,9 +1,6 @@
 import bonusRacial.BonusRacial
 
 class Personagem (val bonusRacial: BonusRacial){
-
-
-
     var pontosDisponiveis = 27
     var forca = 8
     var destreza = 8
