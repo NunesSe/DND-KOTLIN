@@ -1,6 +1,6 @@
 import bonusRacial.BonusRacial
 
-class Personagem (val bonusRacial: BonusRacial){
+class Personagem(val bonusRacial: BonusRacial) {
     var pontosDisponiveis = 27
     var forca = 8
     var destreza = 8
@@ -34,96 +34,61 @@ class Personagem (val bonusRacial: BonusRacial){
         28 to 9, 29 to 9, 30 to 10
     )
 
-    fun aplicaBonusRacial() {
-        this.bonusRacial.aplicarBonusRacial(this);
+    fun aplicaBonusRacial(): Map<String, Int> {
+        return this.bonusRacial.aplicarBonusRacial(this)
     }
 
-    fun distribuicaoEhValida(atributoAtual: Int, pontosGastos: Int) : Boolean {
-        if(pontosGastos < 0 || pontosGastos > 9) {
+    fun distribuicaoEhValida(atributoAtual: Int, pontosGastos: Int): Boolean {
+        if (pontosGastos < 0 || pontosGastos > 9) {
             return false
         }
 
-        if(pontosGastos == 6 || pontosGastos == 8) {
+        if (pontosGastos == 6 || pontosGastos == 8) {
             return false
         }
 
-        if(pontosGastos > pontosDisponiveis) {
+        if (pontosGastos > pontosDisponiveis) {
             return false
         }
 
-        if(atributoAtual >= custosAtributos.getValue(pontosGastos)) {
+        if (atributoAtual >= custosAtributos.getValue(pontosGastos)) {
             return false
         }
 
         return true
     }
 
-    fun distribuirPontosParaAtributo(atributo: String, valorAtual: Int): Int {
-        mostrarTabelaAbributos();
-        println("Pontos Disponiveis: $pontosDisponiveis")
-        print("Quantos pontos deseja alocar em $atributo (0-9): ")
-        val pontosAlocados = readln().toInt()
-
+    fun distribuirPontosParaAtributo(valorAtual: Int, pontosAlocados: Int): Int {
         if (distribuicaoEhValida(valorAtual, pontosAlocados)) {
             val novoValor = custosAtributos.getValue(pontosAlocados)
             pontosDisponiveis -= pontosAlocados
-            println("Pontos alocados! $atributo atual: $novoValor")
             return novoValor
         } else {
-            println("Alocação inválida!")
             return valorAtual
         }
     }
 
-    fun mostrarTabelaAbributos() {
-        println("1 ponto(s) para 9,\n" +
-                "2 ponto(s) para 10,\n" +
-                "3 ponto(s) para 11,\n" +
-                "4 ponto(s) para 12,\n" +
-                "5 ponto(s) para 13,\n" +
-                "7 ponto(s) para 14,\n" +
-                "9 ponto(s) para 15")
-    }
-
-
-    fun distribuirPontos() {
-        if (pontosDisponiveis < 1) {
-            println("Você não possui mais pontos disponíveis para alocar!")
-            return
-        }
-
-        forca = distribuirPontosParaAtributo("FORÇA", forca)
-        destreza = distribuirPontosParaAtributo("DESTREZA", destreza)
-        constituicao = distribuirPontosParaAtributo("CONSTITUIÇÃO", constituicao)
-        inteligencia = distribuirPontosParaAtributo("INTELIGÊNCIA", inteligencia)
-        sabedoria = distribuirPontosParaAtributo("SABEDORIA", sabedoria)
-        carisma = distribuirPontosParaAtributo("CARISMA", carisma)
-
-        println("Distribuição concluída. Pontos restantes: $pontosDisponiveis")
-
-
-    }
-
     fun calcularVida() {
-        var modificadorConstituicao = valorModificador.getValue(constituicao)
+        val modificadorConstituicao = valorModificador.getValue(constituicao)
         vida += modificadorConstituicao
     }
-    fun criarPersonagem() {
-        distribuirPontos()
-        println("Aplicando bonus racial!")
+
+    fun criarPersonagem(): Personagem {
         aplicaBonusRacial()
         calcularVida()
-        mostrarFicha()
+        return this
     }
-    fun mostrarFicha() {
-        println("Ficha do Personagem:")
-        println("VIDA: $vida")
-        println("FORÇA: $forca")
-        println("DESTREZA: $destreza")
-        println("CONSTITUIÇÃO: $constituicao")
-        println("INTELIGÊNCIA: $inteligencia")
-        println("SABEDORIA: $sabedoria")
-        println("CARISMA: $carisma")
-        println("Pontos Disponíveis: $pontosDisponiveis")
+
+    fun obterFichaPersonagem(): Map<String, Int> {
+        return mapOf(
+            "vida" to vida,
+            "forca" to forca,
+            "destreza" to destreza,
+            "constituicao" to constituicao,
+            "inteligencia" to inteligencia,
+            "sabedoria" to sabedoria,
+            "carisma" to carisma,
+            "pontosDisponiveis" to pontosDisponiveis
+        )
     }
 }
