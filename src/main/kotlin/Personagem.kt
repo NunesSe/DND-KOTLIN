@@ -68,10 +68,6 @@ class Personagem(val bonusRacial: BonusRacial) {
             return false
         }
 
-        if (atributoAtual >= custosAtributos.getValue(pontosGastos)) {
-            return false
-        }
-
         return true
     }
 
