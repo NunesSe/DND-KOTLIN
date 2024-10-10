@@ -95,7 +95,7 @@ class Personagem(val bonusRacial: BonusRacial) {
 
     fun calcularVida() {
         val modificadorConstituicao = valorModificador.getValue(constituicao)
-        vida += modificadorConstituicao
+        vida = 10 + modificadorConstituicao
     }
 
     fun criarPersonagem(): Personagem {
