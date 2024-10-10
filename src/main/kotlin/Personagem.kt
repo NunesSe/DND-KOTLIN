@@ -71,15 +71,27 @@ class Personagem(val bonusRacial: BonusRacial) {
         return true
     }
 
-    fun distribuirPontosParaAtributo(valorAtual: Int, pontosAlocados: Int): Int {
+    fun distribuirPontosParaAtributo(atributo: String, valorAtual: Int, pontosAlocados: Int): Int {
         if (distribuicaoEhValida(valorAtual, pontosAlocados)) {
             val novoValor = custosAtributos.getValue(pontosAlocados)
-            atualizarPontosRestantes()
+
+            when (atributo) {
+                "forca" -> forca = novoValor
+                "destreza" -> destreza = novoValor
+                "constituicao" -> constituicao = novoValor
+                "inteligencia" -> inteligencia = novoValor
+                "sabedoria" -> sabedoria = novoValor
+                "carisma" -> carisma = novoValor
+            }
+
+            pontosDisponiveis = atualizarPontosRestantes()
+
             return novoValor
         } else {
             return valorAtual
         }
     }
+
 
     fun calcularVida() {
         val modificadorConstituicao = valorModificador.getValue(constituicao)
