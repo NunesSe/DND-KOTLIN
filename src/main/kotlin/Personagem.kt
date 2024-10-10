@@ -21,6 +21,17 @@ class Personagem(val bonusRacial: BonusRacial) {
         9 to 15
     )
 
+    val atributosPontos = mutableMapOf(
+        8 to 0,
+        9 to 1,
+        10 to 2,
+        11 to 3,
+        12 to 4,
+        13 to 5,
+        14 to 7,
+        15 to 9
+    )
+
     val valorModificador: Map<Int, Int> = mapOf(
         1 to -5, 2 to -4, 3 to -4,
         4 to -3, 5 to -3, 6 to -2,
@@ -33,6 +44,12 @@ class Personagem(val bonusRacial: BonusRacial) {
         25 to 7, 26 to 8, 27 to 8,
         28 to 9, 29 to 9, 30 to 10
     )
+
+    fun atualizarPontosRestantes() {
+        var pontosGastos = atributosPontos.getValue(forca) + atributosPontos.getValue(destreza) + atributosPontos.getValue(constituicao) +
+                atributosPontos.getValue(inteligencia) + atributosPontos.getValue(sabedoria) +  atributosPontos.getValue(carisma)
+        pontosDisponiveis = 27 - pontosGastos
+    }
 
     fun aplicaBonusRacial(): Map<String, Int> {
         return this.bonusRacial.aplicarBonusRacial(this)
@@ -61,7 +78,7 @@ class Personagem(val bonusRacial: BonusRacial) {
     fun distribuirPontosParaAtributo(valorAtual: Int, pontosAlocados: Int): Int {
         if (distribuicaoEhValida(valorAtual, pontosAlocados)) {
             val novoValor = custosAtributos.getValue(pontosAlocados)
-            pontosDisponiveis -= pontosAlocados
+            atualizarPontosRestantes()
             return novoValor
         } else {
             return valorAtual
