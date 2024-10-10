@@ -45,10 +45,10 @@ class Personagem(val bonusRacial: BonusRacial) {
         28 to 9, 29 to 9, 30 to 10
     )
 
-    fun atualizarPontosRestantes() {
+    fun atualizarPontosRestantes(): Int {
         var pontosGastos = atributosPontos.getValue(forca) + atributosPontos.getValue(destreza) + atributosPontos.getValue(constituicao) +
                 atributosPontos.getValue(inteligencia) + atributosPontos.getValue(sabedoria) +  atributosPontos.getValue(carisma)
-        pontosDisponiveis = 27 - pontosGastos
+        return 27 - pontosGastos
     }
 
     fun aplicaBonusRacial(): Map<String, Int> {
