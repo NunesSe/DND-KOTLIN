@@ -1,12 +1,15 @@
 package bonusRacial
 
-import Personagem
+import PersonagemLIB
 
 class Anao : BonusRacial {
-    override fun aplicarBonusRacial(personagem: Personagem): Map<String, Int> {
+    override fun aplicarBonusRacial(personagem: PersonagemLIB) {
         personagem.constituicao += 2
+    }
 
+    override fun retornarBonusRacial(personagem: PersonagemLIB): Map<String, Any> {
         return mapOf(
+            "raça" to "Anão",
             "forca" to 0,
             "destreza" to 0,
             "constituicao" to 2,

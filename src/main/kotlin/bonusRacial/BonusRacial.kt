@@ -1,7 +1,8 @@
 package bonusRacial
 
-import Personagem
+import PersonagemLIB
 
 interface BonusRacial {
-    fun aplicarBonusRacial(personagem: Personagem): Map<String, Int>
+    fun aplicarBonusRacial(personagem: PersonagemLIB)
+    fun retornarBonusRacial(personagem: PersonagemLIB): Map<String, Any>
 }
